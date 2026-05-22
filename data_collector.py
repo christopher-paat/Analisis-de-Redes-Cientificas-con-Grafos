@@ -14,9 +14,7 @@ OUTPUT_FILE = os.path.join(DATA_DIR, "papers.json")
 
 # Queries representativas: Sistemas Distribuidos
 QUERIES = [
-    "Raft consensus distributed",
-    "Paxos distributed consensus",
-    "Byzantine fault tolerance",
+    "sistemas distribuidos",
 ]
 
 PAPERS_PER_QUERY = 50
