@@ -12,21 +12,14 @@ BASE_URL = "https://api.semanticscholar.org/graph/v1"
 DATA_DIR = "data"
 OUTPUT_FILE = os.path.join(DATA_DIR, "papers.json")
 
-# Queries representativas del área de Sistemas Distribuidos
+# Queries representativas: Sistemas Distribuidos
 QUERIES = [
-    "distributed systems consensus algorithm",
     "Raft consensus distributed",
     "Paxos distributed consensus",
-    "MapReduce distributed computing",
     "Byzantine fault tolerance",
-    "distributed file system replication",
-    "microservices distributed architecture",
-    "eventual consistency distributed database",
-    "distributed hash table peer to peer",
-    "distributed transaction two phase commit",
-    "Zookeeper distributed coordination",
-    "Kafka distributed streaming",
 ]
+
+PAPERS_PER_QUERY = 50
 
 
 def fetch_papers(query: str, limit: int = 100, offset: int = 0) -> dict | None:
@@ -64,7 +57,7 @@ def collect_data() -> list[dict]:
 
     for query in QUERIES:
         print(f"\nBuscando: '{query}'...")
-        result = fetch_papers(query, limit=100)
+        result = fetch_papers(query, limit=PAPERS_PER_QUERY)
 
         if result and "data" in result:
             nuevos = 0
@@ -91,7 +84,7 @@ def collect_data() -> list[dict]:
         else:
             print("  -> Sin resultados.")
 
-        # Pausa para respetar el rate limit de la API (sin API key: ~100 req/5 min)
+        # Pausa para respetar el rate limit de la API
         time.sleep(1.5)
 
     papers_list = list(all_papers.values())
